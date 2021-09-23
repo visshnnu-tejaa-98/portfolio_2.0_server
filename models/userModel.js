@@ -1,4 +1,8 @@
 const mongoose = require('mongoose');
+const { Experience } = require('./experienceModel');
+const { Education } = require('./educationModel');
+const { Certificate } = require('./certificateModel');
+const { Project } = require('./projectModel');
 
 const hobbiesSchema = mongoose.Schema(
 	{
@@ -16,7 +20,7 @@ const hobbiesSchema = mongoose.Schema(
 	}
 );
 
-const aboutSchema = mongoose.Schema(
+const user = mongoose.Schema(
 	{
 		name: {
 			type: String,
@@ -68,6 +72,23 @@ const aboutSchema = mongoose.Schema(
 		},
 		hobbies: {
 			type: [hobbiesSchema],
+			required: true,
+		},
+		experience: {
+			type: [Experience],
+			required: true,
+		},
+		education: {
+			type: [Education],
+			required: true,
+		},
+		certificates: {
+			type: [Certificate],
+			required: true,
+		},
+		projects: {
+			type: [Project],
+			required: true,
 		},
 	},
 	{
@@ -75,8 +96,8 @@ const aboutSchema = mongoose.Schema(
 	}
 );
 
-const About = mongoose.model('about', aboutSchema);
+const About = mongoose.model('user', aboutSchema);
 
 module.exports = {
-	About,
+	User,
 };
