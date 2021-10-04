@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const certificateSchema = mongoose.Schema(
+const Certificate = mongoose.Schema(
 	{
 		title: {
 			type: String,
@@ -31,8 +31,6 @@ const certificateSchema = mongoose.Schema(
 		timestamps: true,
 	}
 );
-
-const Certificate = mongoose.model('certificate', certificateSchema);
 
 module.exports = {
 	Certificate,

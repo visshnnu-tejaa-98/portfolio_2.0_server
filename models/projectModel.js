@@ -9,7 +9,7 @@ const stackSchema = mongoose.Schema({
 	},
 });
 
-const projectSchema = mongoose.Schema(
+const Project = mongoose.Schema(
 	{
 		title: {
 			type: String,
@@ -49,8 +49,6 @@ const projectSchema = mongoose.Schema(
 		timestamps: true,
 	}
 );
-
-const Project = mongoose.model('project', projectSchema);
 
 module.exports = {
 	Project,

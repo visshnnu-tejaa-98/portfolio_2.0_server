@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const experienceSchema = mongoose.Schema(
+const Experience = mongoose.Schema(
 	{
 		designation: {
 			type: String,
@@ -36,8 +36,4 @@ const experienceSchema = mongoose.Schema(
 	}
 );
 
-const Experience = mongoose.model('experience', experienceSchema);
-
-module.exports = {
-	Experience,
-};
+module.exports = { Experience };

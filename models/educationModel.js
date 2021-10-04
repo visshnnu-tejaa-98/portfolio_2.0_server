@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const educationSchema = mongoose.Schema(
+const Education = mongoose.Schema(
 	{
 		Standard: {
 			type: String,
@@ -39,8 +39,6 @@ const educationSchema = mongoose.Schema(
 		timestamps: true,
 	}
 );
-
-const Education = mongoose.model('education', educationSchema);
 
 module.exports = {
 	Education,

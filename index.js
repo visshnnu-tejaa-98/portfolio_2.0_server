@@ -5,6 +5,7 @@ const cors = require('cors');
 
 // local imports
 const { connectDB } = require('./config/db');
+const userRoutes = require('./routes/userRoutes');
 
 // configs
 dotenv.config();
@@ -15,9 +16,9 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // middlewares
-app.get('/', (req, res) => {
-	res.send('Hello, This is my portfolio');
-});
+// app.use('/', userRoutes);
+app.use(express.json());
+app.use('/api/v1/user', userRoutes);
 
 // listener
 app.listen(PORT, () => {

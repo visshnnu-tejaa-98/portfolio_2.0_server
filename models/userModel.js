@@ -46,7 +46,7 @@ const user = mongoose.Schema(
 			type: String,
 			require: true,
 		},
-		Email: {
+		email: {
 			type: String,
 			required: true,
 		},
@@ -76,19 +76,19 @@ const user = mongoose.Schema(
 		},
 		experience: {
 			type: [Experience],
-			required: true,
+			// required: true,
 		},
 		education: {
 			type: [Education],
-			required: true,
+			// required: true,
 		},
 		certificates: {
 			type: [Certificate],
-			required: true,
+			// required: true,
 		},
 		projects: {
 			type: [Project],
-			required: true,
+			// required: true,
 		},
 	},
 	{
@@ -96,7 +96,7 @@ const user = mongoose.Schema(
 	}
 );
 
-const About = mongoose.model('user', aboutSchema);
+const User = mongoose.model('user', user);
 
 module.exports = {
 	User,
