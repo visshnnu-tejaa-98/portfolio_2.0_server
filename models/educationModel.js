@@ -15,7 +15,7 @@ const Education = mongoose.Schema(
 			required: true,
 		},
 		endDate: {
-			type: String,
+			type: Date,
 		},
 		present: {
 			type: Boolean,

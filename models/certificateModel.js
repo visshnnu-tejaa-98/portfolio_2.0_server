@@ -15,7 +15,7 @@ const Certificate = mongoose.Schema(
 			required: true,
 		},
 		endDate: {
-			type: String,
+			type: Date,
 		},
 		validity: {
 			type: Boolean,
