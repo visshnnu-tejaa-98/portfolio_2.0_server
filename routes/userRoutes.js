@@ -17,6 +17,9 @@ const {
 	addCertificate,
 	deleteCertificate,
 	updateCertificate,
+	addHobby,
+	deleteHobby,
+	updateHobby,
 } = require('../controllers/userController');
 
 Router.get('/', getUser);
@@ -38,5 +41,9 @@ Router.post('/updateProject/:id', updateProject);
 Router.post('/addCertificate', addCertificate);
 Router.post('/deleteCertificate/:id', deleteCertificate);
 Router.post('/updateCertificate/:id', updateCertificate);
+
+Router.post('/addHobby', addHobby);
+Router.post('/deleteHobby/:id', deleteHobby);
+Router.post('/updateHobby/:id', updateHobby);
 
 module.exports = Router;

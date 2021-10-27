@@ -318,6 +318,65 @@ const updateCertificate = async (req, res) => {
 	}
 };
 
+/*
+ * desc Add Hobby
+ * Path api/v1/user/addHobby
+ */
+const addHobby = async (req, res) => {
+	try {
+		let user = await User.findById('615ad6c850abe08f2d3d5842');
+		if (!user) res.status(400).json({ data: 'User not found', status: false, error: null });
+		user.hobbies.push(req.body);
+		user.save();
+		res.status(200).json({ data: 'Hobby Added', status: true, error: null });
+	} catch (error) {
+		console.log(error);
+		res.status(400).json({ data: 'Something went wrong', status: false, error: error });
+	}
+};
+
+/*
+ * desc Delete Hobby by ID
+ * Path /api/v1/user/deleteHobby/:id
+ */
+const deleteHobby = async (req, res) => {
+	try {
+		let user = await User.findById('615ad6c850abe08f2d3d5842');
+		if (!user) res.status(400).json({ data: 'User not found', status: false, error: null });
+		let hobbies = user.hobbies.filter((obj) => obj._id != req.params.id);
+		console.log(hobbies);
+		user.hobbies = hobbies;
+		user.save();
+		res.status(200).json({ data: 'Hobby Deleted', status: true, error: null });
+	} catch (error) {
+		console.log(error);
+		res.status(400).json({ data: 'Something went wrong', status: false, error: error });
+	}
+};
+
+/*
+ * desc Edit Hobby by ID
+ * Path /api/v1/user/updateHobby/:id
+ */
+const updateHobby = async (req, res) => {
+	try {
+		let user = await User.findById('615ad6c850abe08f2d3d5842');
+		if (!user) res.status(400).json({ data: 'User not found', status: false, error: null });
+		user.hobbies.map((obj) => {
+			if (obj._id == req.params.id) {
+				obj.title = req.body.title;
+				obj.description = req.body.description;
+				console.log(obj);
+			}
+		});
+		user.save();
+		res.status(200).json({ data: 'Project Updated', status: true, error: null });
+	} catch (error) {
+		console.log(error);
+		res.status(400).json({ data: 'Something went wrong', status: false, error: error });
+	}
+};
+
 module.exports = {
 	createUser,
 	getUser,
@@ -334,4 +393,7 @@ module.exports = {
 	addCertificate,
 	deleteCertificate,
 	updateCertificate,
+	addHobby,
+	deleteHobby,
+	updateHobby,
 };
