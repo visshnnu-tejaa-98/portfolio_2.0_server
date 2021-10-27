@@ -126,6 +126,70 @@ const updateExperience = async (req, res) => {
 	}
 };
 
+/*
+ * desc Add Education
+ * Path api/v1/user/addEducation
+ */
+const addEducation = async (req, res) => {
+	try {
+		let user = await User.findById('615ad6c850abe08f2d3d5842');
+		if (!user) res.status(400).json({ data: 'User not found', status: false, error: null });
+		user.education.push(req.body);
+		user.save();
+		res.status(200).json({ data: 'Education Added', status: true, error: null });
+	} catch (error) {
+		console.log(error);
+		res.status(400).json({ data: 'Something went wrong', status: false, error: error });
+	}
+};
+
+/*
+ * desc Delete Education by ID
+ * Path /api/v1/user/deleteEducation/:id
+ */
+const deleteEducation = async (req, res) => {
+	try {
+		let user = await User.findById('615ad6c850abe08f2d3d5842');
+		if (!user) res.status(400).json({ data: 'User not found', status: false, error: null });
+		let education = user.education.filter((obj) => obj._id != req.params.id);
+		console.log(education);
+		user.education = education;
+		user.save();
+		res.status(200).json({ data: 'Education Deleted', status: true, error: null });
+	} catch (error) {
+		console.log(error);
+		res.status(400).json({ data: 'Something went wrong', status: false, error: error });
+	}
+};
+
+/*
+ * desc Edit Education by ID
+ * Path /api/v1/user/updateEducation/:id
+ */
+const updateEducation = async (req, res) => {
+	try {
+		let user = await User.findById('615ad6c850abe08f2d3d5842');
+		if (!user) res.status(400).json({ data: 'User not found', status: false, error: null });
+		user.education.map((obj) => {
+			if (obj._id == req.params.id) {
+				obj.institute = req.body.institute;
+				obj.startDate = req.body.startDate;
+				obj.endDate = req.body.endDate;
+				obj.present = req.body.present;
+				obj.specilization = req.body.specilization;
+				obj.description = req.body.description;
+				obj.place = req.body.place;
+				console.log(obj);
+			}
+		});
+		user.save();
+		res.status(200).json({ data: 'Education Updated', status: true, error: null });
+	} catch (error) {
+		console.log(error);
+		res.status(400).json({ data: 'Something went wrong', status: false, error: error });
+	}
+};
+
 module.exports = {
 	createUser,
 	getUser,
@@ -133,4 +197,7 @@ module.exports = {
 	addExperience,
 	deleteExperience,
 	updateExperience,
+	addEducation,
+	deleteEducation,
+	updateEducation,
 };
