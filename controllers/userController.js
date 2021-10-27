@@ -255,6 +255,69 @@ const updateProject = async (req, res) => {
 	}
 };
 
+/*
+ * desc Add  Certificate
+ * Path api/v1/user/addCertificate
+ */
+const addCertificate = async (req, res) => {
+	try {
+		let user = await User.findById('615ad6c850abe08f2d3d5842');
+		if (!user) res.status(400).json({ data: 'User not found', status: false, error: null });
+		user.certificates.push(req.body);
+		user.save();
+		res.status(200).json({ data: 'Certificate Added', status: true, error: null });
+	} catch (error) {
+		console.log(error);
+		res.status(400).json({ data: 'Something went wrong', status: false, error: error });
+	}
+};
+
+/*
+ * desc Delete Certificate by ID
+ * Path /api/v1/user/deleteCertificate/:id
+ */
+const deleteCertificate = async (req, res) => {
+	try {
+		let user = await User.findById('615ad6c850abe08f2d3d5842');
+		if (!user) res.status(400).json({ data: 'User not found', status: false, error: null });
+		let certificates = user.certificates.filter((obj) => obj._id != req.params.id);
+		console.log(certificates);
+		user.certificates = certificates;
+		user.save();
+		res.status(200).json({ data: 'Certificates Deleted', status: true, error: null });
+	} catch (error) {
+		console.log(error);
+		res.status(400).json({ data: 'Something went wrong', status: false, error: error });
+	}
+};
+
+/*
+ * desc Edit Certificate by ID
+ * Path /api/v1/user/updateCertificate/:id
+ */
+const updateCertificate = async (req, res) => {
+	try {
+		let user = await User.findById('615ad6c850abe08f2d3d5842');
+		if (!user) res.status(400).json({ data: 'User not found', status: false, error: null });
+		user.certificates.map((obj) => {
+			if (obj._id == req.params.id) {
+				obj.title = req.body.title;
+				obj.description = req.body.description;
+				obj.startDate = req.body.startDate;
+				obj.endDate = req.body.endDate;
+				obj.validity = req.body.validity;
+				obj.certificateUrl = req.body.certificateUrl;
+				console.log(obj);
+			}
+		});
+		user.save();
+		res.status(200).json({ data: 'Project Updated', status: true, error: null });
+	} catch (error) {
+		console.log(error);
+		res.status(400).json({ data: 'Something went wrong', status: false, error: error });
+	}
+};
+
 module.exports = {
 	createUser,
 	getUser,
@@ -268,4 +331,7 @@ module.exports = {
 	addProject,
 	deleteProject,
 	updateProject,
+	addCertificate,
+	deleteCertificate,
+	updateCertificate,
 };
