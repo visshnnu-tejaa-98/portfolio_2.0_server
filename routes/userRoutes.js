@@ -11,6 +11,9 @@ const {
 	addEducation,
 	deleteEducation,
 	updateEducation,
+	addProject,
+	deleteProject,
+	updateProject,
 } = require('../controllers/userController');
 
 Router.get('/', getUser);
@@ -24,5 +27,9 @@ Router.post('/updateExperience/:id', updateExperience);
 Router.post('/addEducation', addEducation);
 Router.post('/deleteEducation/:id', deleteEducation);
 Router.post('/updateEducation/:id', updateEducation);
+
+Router.post('/addProject', addProject);
+Router.post('/deleteProject/:id', deleteProject);
+Router.post('/updateProject/:id', updateProject);
 
 module.exports = Router;

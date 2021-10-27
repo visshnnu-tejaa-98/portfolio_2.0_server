@@ -190,6 +190,71 @@ const updateEducation = async (req, res) => {
 	}
 };
 
+/*
+ * desc Add Project
+ * Path api/v1/user/addProject
+ */
+const addProject = async (req, res) => {
+	try {
+		let user = await User.findById('615ad6c850abe08f2d3d5842');
+		if (!user) res.status(400).json({ data: 'User not found', status: false, error: null });
+		user.projects.push(req.body);
+		user.save();
+		res.status(200).json({ data: 'Project Added', status: true, error: null });
+	} catch (error) {
+		console.log(error);
+		res.status(400).json({ data: 'Something went wrong', status: false, error: error });
+	}
+};
+
+/*
+ * desc Delete Project by ID
+ * Path /api/v1/user/deleteProject/:id
+ */
+const deleteProject = async (req, res) => {
+	try {
+		let user = await User.findById('615ad6c850abe08f2d3d5842');
+		if (!user) res.status(400).json({ data: 'User not found', status: false, error: null });
+		let projects = user.projects.filter((obj) => obj._id != req.params.id);
+		console.log(projects);
+		user.projects = projects;
+		user.save();
+		res.status(200).json({ data: 'Project Deleted', status: true, error: null });
+	} catch (error) {
+		console.log(error);
+		res.status(400).json({ data: 'Something went wrong', status: false, error: error });
+	}
+};
+
+/*
+ * desc Edit Project by ID
+ * Path /api/v1/user/updateProject/:id
+ */
+const updateProject = async (req, res) => {
+	try {
+		let user = await User.findById('615ad6c850abe08f2d3d5842');
+		if (!user) res.status(400).json({ data: 'User not found', status: false, error: null });
+		user.projects.map((obj) => {
+			if (obj._id == req.params.id) {
+				obj.title = req.body.title;
+				obj.description = req.body.description;
+				obj.category = req.body.category;
+				obj.stack = req.body.stack;
+				obj.hostedUrl = req.body.hostedUrl;
+				obj.frontendUrl = req.body.frontendUrl;
+				obj.backendUrl = req.body.backendUrl;
+				obj.imageUrl = req.body.imageUrl;
+				console.log(obj);
+			}
+		});
+		user.save();
+		res.status(200).json({ data: 'Project Updated', status: true, error: null });
+	} catch (error) {
+		console.log(error);
+		res.status(400).json({ data: 'Something went wrong', status: false, error: error });
+	}
+};
+
 module.exports = {
 	createUser,
 	getUser,
@@ -200,4 +265,7 @@ module.exports = {
 	addEducation,
 	deleteEducation,
 	updateEducation,
+	addProject,
+	deleteProject,
+	updateProject,
 };
